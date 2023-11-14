@@ -1,0 +1,107 @@
+/* incometaxcalc.css */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(https://i.pinimg.com/originals/84/ed/46/84ed463637fc20bce821215b87894d80.gif);
+    background-size: cover;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+#header {
+    background-image: url('https://scontent.xx.fbcdn.net/v/t1.15752-9/393138990_707271201366663_861245483433151621_n.png?_nc_cat=103&ccb=1-7&_nc_sid=510075&_nc_eui2=AeFYKDNLlupXOahW_rwDuwtyvA5Z-OO9HXW8Dln4470ddTSRlkfjgUSZYyvIf7_Z0v5KIKIClJa4HCNweyrb6l1d&_nc_ohc=hSWLMMrrYKQAX-e2UwE&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdT1XmBWyUOaqFt5I-7fabAn0DSRzD0245WgCxgXnAjCdw&oe=659D4E17'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    height: 100px;
+}
+
+#home {
+    text-decoration: none;
+    display: block; 
+    margin-top: -20px; 
+}
+
+#home img {
+    width: 40px; 
+    height: 40px; 
+}
+
+.container-center{
+    display: inline-block;
+    width: 48%;
+    margin-right: 2%;
+}
+
+.single-container {
+    background-color: #ffd83f;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+input {
+    width: calc(100% - 18px);
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #3ea66b;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #919e92;
+}
+    
+.table-container {
+    margin-top: 20px;
+    background-color: #3ea66b;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-container td[colspan="2"] {
+    text-align: center;
+}
+
+.table-container td[rowspan="2"] {
+    text-align:center;
+}
+
+label{
+    text-align: center;
+    border: 2px solid #ffd83f;
+    border-radius: 26px;
+    outline: none; 
+    text-decoration: none;
+    color: #000000;
+    font-size: 15px;
+    display: inline-block;
+    background-color: #ffd83f; 
+}

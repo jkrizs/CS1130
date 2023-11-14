@@ -1,0 +1,65 @@
+/* compute.css */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(https://i.pinimg.com/originals/39/b9/4e/39b94e67b72156a364c7271805b25098.gif);
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#header {
+    background-image: url('https://scontent.fcgy2-2.fna.fbcdn.net/v/t1.15752-9/368074349_301922148833702_1795150418557387712_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeE27phVXbQIFZfLg5_50kRbInPy4CS8JmYic_LgJLwmZiUtgaST-addWyZfXWpnbbNbPM9af_gahlsY5YGqPadW&_nc_ohc=d6uNwD1wkE0AX-uQCR-&_nc_ht=scontent.fcgy2-2.fna&oh=03_AdSGCwSzPZBWE_rdcSh2q6WaYxZ-6HOu5K2bNq0T6AXs7A&oe=659D4C79'); 
+    background-size: contain; 
+    background-position: center; 
+    background-repeat: no-repeat;
+    height: 100px; 
+}
+
+#home {
+    text-decoration: none;
+    display: block; 
+    margin-top: -20px; 
+}
+
+#home img {
+    width: 40px; 
+    height: 40px; 
+}
+
+.single-container {
+    background-color: #ffd83f;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+select, input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #919e92;
+}

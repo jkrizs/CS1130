@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Income Tax</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="incometaxcalc.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-container">
+            <h1 id="header"></h1>
+        </div>
+        <a href="index.html" id="home">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/398474956_1699661003862060_3865491387662383815_n.png?stp=dst-png_p206x206&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_eui2=AeF2rjz_ag_vvH_6-kgotD1SOncQKj8bkOw6dxAqPxuQ7Jt_Osr10RHNRl3_bcO8OP-qLDrXk_UOKNrsfWOIFqSI&_nc_ohc=LeTQM3on-_YAX_qOJR2&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRmrzCRJCJrj28vPtkDNLLaKWOv0f3wvzOYi1iic7YZIQ&oe=659D3D8C" alt="Home">
+        </a>
+    </div>
+    <div class="single-container">
+        <div class="content-wrapper">
+            <div class="container-left ratio-fifty">
+                <div class="content-center">
+                    <label>Enter your income: </label>
+                    <input type="text" id="income" placeholder="₱">
+                    <button id="clear-button">Clear Values</button>
+                    <br><br>
+            <div class="container-right ratio-fifty">
+                <div class="content-right">
+                    <label for="formatted-input">Taxable Income: </label>
+                    <input type="text" id="formatted-input" placeholder="₱" readonly>
+                    <br><br>
+                    <label for="result">Income Tax: </label>
+                    <input type="text" id="result" placeholder="₱" readonly>
+                    <br><br>
+                    <label for="after-tax">Income After Tax:</label>
+                    <input type="text" id="after-tax" placeholder="₱" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <label for="tax-table">Income Tax Rates: </label>
+        <br>
+        <table>
+            <tbody>
+                <tr id="row1">
+                    <td colspan="2"><strong><span>Amount of Net Taxable Income</span></strong></td>
+                    <td rowspan="2"><strong><span><span>Rate</span></strong></td>
+                </tr>
+                <tr id="row2">
+                    <td><strong><span>Over</span></strong></td>
+                    <td><strong><span>But Not Over</span></strong></td>
+                </tr>
+                <tr id="row3">
+                    <td><span>     </span></td>
+                    <td><span>₱250,000</span></td>
+                    <td><span>0%</span></td>
+                </tr>
+                <tr id="row4">
+                    <td><span>₱250,000</span></td>
+                    <td><span>₱400,000</span></td>
+                    <td><span>20% of the excess over ₱250,000</span></td>
+                </tr>
+                <tr id="row5">
+                    <td><span>₱ 400,000</span></td>
+                    <td><span>₱ 800,000</span></td>
+                    <td><span>₱ 30,000 + 25% of the excess over ₱400,000</span></td>
+                </tr>
+                <tr id="row6">
+                    <td><span>₱800,000</span></td>
+                    <td><span>₱2,000,000</span></td>
+                    <td><span>₱130,000 + 30% of the excess over ₱800,000</span></td>
+                </tr>
+                <tr id="row7">
+                    <td><span>₱2,000,000</span></td>
+                    <td><span>₱8,000,000</span></td>
+                    <td><span>₱490,000 + 32% of the excess over ₱2,000,000</span></td>
+                </tr>
+                <tr id="row8">
+                    <td><span>₱8,000,000</span></td>
+                    <td>     </td>
+                    <td><span>₱2,410,000 + 35% of the excess over ₱8,000,000</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('income').addEventListener('input', calculateIncomeTax);
+        document.getElementById('clear-button').addEventListener('click', clearValues);
+
+        function calculateIncomeTax() {
+            var income = document.getElementById('income').value;
+
+            if (!isNaN(income)) {
+                tax = incomeTax(income);
+                document.getElementById('formatted-input').value = '₱ ' + Number(income).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('result').value = '₱ ' + Number(tax).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById('after-tax').value = '₱ ' + Number(income - tax).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            } else {
+                document.getElementById('formatted-input').value = 'Please enter a valid number.';
+                document.getElementById('result').value = 'Please enter a valid number.';
+                document.getElementById('after-tax').value = 'Please enter a valid number.';
+
+                var rows = document.getElementsByTagName('tr');
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].classList.remove('highlight');
+                }
+            }
+        }
+
+        function formatInput() {
+            var income = document.getElementById('income').value;
+            income = Number(income).toLocaleString();
+            income = '₱ ' + income;
+            document.getElementById('income').value = income;
+        }
+
+        function incomeTax(income) {
+            var tax = 0.0;
+
+            if (income <= 250000) {
+                tax = 0.0;
+                row = document.getElementById('row3');
+            } else if (income <= 400000) {
+                tax = (income - 250000) * 0.20;
+                row = document.getElementById('row4');
+            } else if (income <= 800000) {
+                tax = (income - 400000) * 0.25 + 30000;
+                row = document.getElementById('row5');
+            } else if (income <= 2000000) {
+                tax = (income - 800000) * 0.30 + 130000;
+                row = document.getElementById('row6');
+            } else if (income <= 8000000) {
+                tax = (income - 2000000) * 0.32 + 490000;
+                row = document.getElementById('row7');
+            } else {
+                tax = (income - 8000000) * 0.35 + 2410000;
+                row = document.getElementById('row8');
+            }
+
+            var rows = document.getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].classList.remove('highlight');
+            }
+
+            row.classList.add('highlight');
+
+            return tax;
+        }
+
+        function clearValues() {
+            document.getElementById('income').value = '';
+            document.getElementById('formatted-input').value = '';
+            document.getElementById('result').value = '';
+            document.getElementById('after-tax').value = '';
+
+            var rows = document.getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].classList.remove('highlight');
+            }
+        }
+    </script>
+</body>
+</html>

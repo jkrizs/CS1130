@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Payroll</title>
+    <link rel="stylesheet" href="payroll.css">
+</head>
+<body>
+    <div id="app" class="container">
+      <div class="container">
+        <div id="header-container">
+            <h1 id="header"></h1>
+        </div>
+        <a href="index.html" id="home">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/398474956_1699661003862060_3865491387662383815_n.png?stp=dst-png_p206x206&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_eui2=AeF2rjz_ag_vvH_6-kgotD1SOncQKj8bkOw6dxAqPxuQ7Jt_Osr10RHNRl3_bcO8OP-qLDrXk_UOKNrsfWOIFqSI&_nc_ohc=LeTQM3on-_YAX_qOJR2&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRmrzCRJCJrj28vPtkDNLLaKWOv0f3wvzOYi1iic7YZIQ&oe=659D3D8C" alt="Home">
+        </a>
+    </div>
+    <div class="lowerbox-container">
+        <input type="text" id="employeeName" required placeholder="Employee Name">
+        <input type="number" id="daysWorked" required placeholder="Days Worked">
+        <input type="number" id="dailyRate" required placeholder="Daily Rate">
+        <input type="number" id="deductionAmount" required placeholder="Deduction Amount">
+        <button type="submit" onclick="addEmployee(event)">Add Employee</button>
+        <button type="button" onclick="deleteEmployeeFromButton()">Delete Employee</button>
+        <button type="button" onclick="clearTableWithConfirmation()">Clear Table</button>
+    </div>
+    <div class="table-container">
+        <table id="payrollTable">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Employee Name</th>
+                    <th>Days Worked</th>
+                    <th>Daily Rate</th>
+                    <th>Gross Pay</th>
+                    <th>Deduction Amount</th>
+                    <th>Net Pay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Payroll data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Enter the line number to delete:</p>
+            <input type="number" id="deleteLineInput">
+            <button onclick="deleteEmployeeFromModal()">Delete</button>
+        </div>
+    </div>
+
+    <div id="clearTableModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeClearTableModal()">&times;</span>
+            <p>Are you sure you want to clear the table?</p>
+            <button onclick="clearTable()">Confirm</button>
+            <button onclick="closeClearTableModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        let payrollData = [];
+
+        function addEmployee() {
+            event.preventDefault(); 
+
+            const employeeNameInput = document.getElementById('employeeName');
+            const daysWorkedInput = document.getElementById('daysWorked');
+            const dailyRateInput = document.getElementById('dailyRate');
+            const deductionAmountInput = document.getElementById('deductionAmount');
+
+            const employeeName = employeeNameInput.value;  // Add this line to get the value
+            const daysWorked = parseInt(daysWorkedInput.value);
+            const dailyRate = parseFloat(dailyRateInput.value);
+            const deductionAmount = parseFloat(deductionAmountInput.value);
+
+            const grossPay = daysWorked * dailyRate;
+            const netPay = grossPay - deductionAmount;
+
+            const payrollEntry = {
+                employeeName,
+                daysWorked,
+                dailyRate,
+                grossPay,
+                deductionAmount,
+                netPay
+            };
+
+            payrollData.push(payrollEntry);
+
+            updateTable();
+
+            employeeNameInput.value = '';
+            daysWorkedInput.value = '';
+            dailyRateInput.value = '';
+            deductionAmountInput.value = '';
+        }
+
+        function deleteEmployee(index) {
+            payrollData.splice(index, 1);
+            updateTable();
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector('#payrollTable tbody');
+            tableBody.innerHTML = '';
+
+            payrollData.forEach((entry, index) => {
+                const row = tableBody.insertRow();
+                const cellNo = row.insertCell(0);
+                const cellEmployeeName = row.insertCell(1);
+                const cellDaysWorked = row.insertCell(2);
+                const cellDailyRate = row.insertCell(3);
+                const cellGrossPay = row.insertCell(4);
+                const cellDeductionAmount = row.insertCell(5);
+                const cellNetPay = row.insertCell(6);
+
+                cellNo.innerHTML = index + 1;
+                cellEmployeeName.innerHTML = entry.employeeName;
+                cellDaysWorked.innerHTML = entry.daysWorked;
+                cellDailyRate.innerHTML = entry.dailyRate;
+                cellGrossPay.innerHTML = entry.grossPay;
+                cellDeductionAmount.innerHTML = entry.deductionAmount;
+                cellNetPay.innerHTML = entry.netPay;
+            });
+        }
+
+        function deleteEmployeeFromButton() {
+            // Show the modal
+            const deleteModal = document.getElementById('deleteModal');
+            deleteModal.style.display = 'block';
+        }
+
+        function closeModal() {
+            // Close the modal
+            const deleteModal = document.getElementById('deleteModal');
+            deleteModal.style.display = 'none';
+        }
+
+        function deleteEmployeeFromModal() {
+            const indexToDelete = parseInt(document.getElementById('deleteLineInput').value) - 1;
+            if (!isNaN(indexToDelete) && indexToDelete >= 0 && indexToDelete < payrollData.length) {
+                deleteEmployee(indexToDelete);
+                closeModal();
+            } else {
+                alert("Invalid input. Please enter a valid line number.");
+            }
+        }
+
+        function clearTable() {
+            payrollData = []; // Clear the data
+            updateTable(); // Update the table to reflect the changes
+            closeClearTableModal(); // Close the modal
+        }
+
+        function openClearTableModal() {
+            // Show the Clear Table modal
+            const clearTableModal = document.getElementById('clearTableModal');
+            clearTableModal.style.display = 'block';
+        }
+
+        function closeClearTableModal() {
+            // Close the Clear Table modal
+            const clearTableModal = document.getElementById('clearTableModal');
+            clearTableModal.style.display = 'none';
+        }
+
+        function clearTableWithConfirmation() {
+            // Show modal for confirmation
+            openClearTableModal();
+        }
+
+        function toggleTopNav() {
+            const topNavLeft = document.querySelector('.topnav-left');
+            const topNavRight = document.querySelector('.topnav-right');
+            closeClearTableModal();
+            topNavLeft.classList.toggle('show');
+            topNavRight.classList.toggle('show');
+        }
+
+        document.getElementById('homeneko').addEventListener('click', function () {
+            toggleTopNav();
+        });
+    </script>
+
+</body>
+</html>

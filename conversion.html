@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Conversion</title>
+    <link rel="stylesheet" href="conversion.css">
+</head>
+<body>
+
+        <div class="container">
+            <div id="header-container">
+                <h1 id="header"></h1>
+            </div>
+            <a href="index.html" id="home">
+                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/398474956_1699661003862060_3865491387662383815_n.png?stp=dst-png_p206x206&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_eui2=AeF2rjz_ag_vvH_6-kgotD1SOncQKj8bkOw6dxAqPxuQ7Jt_Osr10RHNRl3_bcO8OP-qLDrXk_UOKNrsfWOIFqSI&_nc_ohc=LeTQM3on-_YAX_qOJR2&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRmrzCRJCJrj28vPtkDNLLaKWOv0f3wvzOYi1iic7YZIQ&oe=659D3D8C" alt="Home">
+            </a>
+        </div>
+<div class="single-container">
+<div class="single-content small-content">
+    <label for="conversion">Select conversion: </label>
+    <select id="conversion" onchange="clearResult()">
+        <option value="celsiusToFahrenheit">Celsius to Fahrenheit</option>
+        <option value="fahrenheitToCelsius">Fahrenheit to Celsius</option>
+        <option value="metersToFeet">Meters to Feet</option>
+        <option value="feetToMeters">Feet to Meters</option>
+    </select>
+    <br>
+    <label>Enter a number: </label>
+    <input type="text" id="number" placeholder="0">
+    <br>
+    <label for="result">Result: </label>
+    <input type="text" id="result" readonly>
+</div>
+</div>
+</div>
+
+<script>
+document.getElementById('conversion').addEventListener('change', convert);
+document.getElementById('number').addEventListener('input', convert);
+
+function convert() {
+var conversionType = document.getElementById('conversion').value;
+var number = Number(document.getElementById('number').value);
+var result = 0;
+var message;
+
+switch (conversionType) {
+    case 'celsiusToFahrenheit':
+        result = (number * (9/5)) + 32;
+        message =  " °F";
+        break;
+    case 'fahrenheitToCelsius':
+        result = (number - 32) * (5/9);
+        message =  " °C";
+        break;
+    case 'metersToFeet':
+        result = number * 3.28084;
+        message =  " ft";
+        break;
+    case 'feetToMeters':
+        result = number / 3.28084;
+        message =  " m";
+        break;
+    default:
+        result = 0;
+}
+
+if (isNaN(number)) {
+    document.getElementById('result').value = 'Please enter a valid number.';
+    return;
+}
+
+document.getElementById('result').value = Number(result).toLocaleString() + message;
+}
+
+function clearResult() {
+document.getElementById('result').value = '';
+}
+</script>
+</body>
+</html>

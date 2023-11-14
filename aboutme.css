@@ -1,0 +1,74 @@
+/* aboutme.css */
+body, h1, h2, p, footer {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #4c8a67, #000000);
+    color: #333;
+    background-size: 200% 100%; 
+    animation: gradientMove 7s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+header {
+    background-color: #041406;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+h1 {
+    color: #fffafa;
+}
+
+section {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    color: #000000;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background-color: #333;
+    color: #fff;
+}
+
+#home {
+    text-decoration: none;
+    display: block; 
+    margin-top: -10px; 
+    text-align: center ;
+}
+
+#home img {
+    width: 40px; 
+    height: 40px; 
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compute</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="compute.css">
+</head>
+<body>
+    <div class="container">
+        <div id="header-container">
+            <h1 id="header"></h1>
+        </div>
+        <a href="index.html" id="home">
+            <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/398474956_1699661003862060_3865491387662383815_n.png?stp=dst-png_p206x206&_nc_cat=100&ccb=1-7&_nc_sid=510075&_nc_eui2=AeF2rjz_ag_vvH_6-kgotD1SOncQKj8bkOw6dxAqPxuQ7Jt_Osr10RHNRl3_bcO8OP-qLDrXk_UOKNrsfWOIFqSI&_nc_ohc=LeTQM3on-_YAX_qOJR2&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdRmrzCRJCJrj28vPtkDNLLaKWOv0f3wvzOYi1iic7YZIQ&oe=659D3D8C" alt="Home">
+        </a>
+    </div>
+    <div class="single-container">
+        <div class="single-content small-content">
+            <label>Operation Type:</label>
+            <select id="operationType">
+                <option value="factorial">Factorial</option>
+                <option value="sum">Sum</option>
+                <option value="average">Average</option>
+            </select>
+            <br><br>
+            <label>Enter a number: </label>
+            <input type="text" id="number" placeholder="0">
+            <br><br>
+            <label for="result">Result: </label>
+            <input type="text" id="result" readonly>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('operationType').addEventListener('change', compute);
+    document.getElementById('number').addEventListener('input', compute);
+
+    function compute() {
+        var number = Number(document.getElementById('number').value);
+        if (isNaN(number)) {
+            document.getElementById('result').value = 'Please enter a valid number.';
+            return;
+        }
+
+        var operationType = document.getElementById('operationType').value;
+        switch (operationType) {
+            case 'factorial':
+                factorial();
+                break;
+            case 'sum':
+                sum();
+                break;
+            case 'average':
+                average();
+                break;
+            default:
+                document.getElementById('result').innerHTML = 'Invalid operation type';
+        }
+    }
+    function factorial() {
+        var number = document.getElementById('number').value * 1;
+        var result = 1;
+        var i = 1;
+        while (i <= number) {
+            result *= i;
+            i++;
+        }
+        document.getElementById('result').value = Number(result).toLocaleString();
+    }
+    function sum() {
+        var number = document.getElementById('number').value * 1;
+        var result = 0;
+        var i = 1;
+
+        if (number == 0) {
+            document.getElementById('result').value = 0;
+            return;
+        }
+
+        do {
+            result += i;
+            i++;
+        } while (i <= number);
+        document.getElementById('result').value = Number(result).toLocaleString();
+    }
+    function average() {
+        var number = document.getElementById('number').value * 1;
+        var result = 0;
+
+        if (number == 0) {
+            document.getElementById('result').value = 0;
+            return;
+        }
+
+        for (var i = 1; i <= number; i++) {
+            result += i;
+        }
+        result /= number;
+        document.getElementById('result').value = Number(result).toLocaleString();
+    }
+    </script>
+</body>
+</html>
